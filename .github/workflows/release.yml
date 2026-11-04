@@ -1,0 +1,36 @@
+# Builds ChromeProfil.zip and publishes a GitHub Release whenever the
+# Version in plugin.json changes on main (Flow Launcher's store installs from it).
+name: Release
+
+on:
+  push:
+    branches: [main]
+    paths: [plugin.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read version
+        id: version
+        run: echo "tag=v$(jq -r .Version plugin.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Build zip
+        run: zip -r ChromeProfil.zip plugin.json main.py Images README.md LICENSE
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists - bump Version in plugin.json to publish a new one."
+          else
+            gh release create "$TAG" ChromeProfil.zip --title "ChromeProfil $TAG" --generate-notes
+          fi

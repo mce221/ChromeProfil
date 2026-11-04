@@ -22,3 +22,12 @@ Profiles come from `%LOCALAPPDATA%\Google\Chrome\User Data\Local State`. Picking
 `chrome.exe --profile-directory="<Profile N>"`.
 
 The action keyword is `cp`; change it in Flow Launcher's plugin settings.
+
+## Releasing
+
+Bump `Version` in `plugin.json` and push to `main`. The GitHub Actions workflow builds
+`ChromeProfil.zip` and publishes it as release `v<Version>`, which Flow Launcher's plugin store installs from.
+
+## License
+
+MIT
