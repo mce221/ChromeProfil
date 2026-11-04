@@ -1,0 +1,12 @@
+{
+  "ID": "224F9CA6FA4B4CD09E9825DD3E8EF4F7",
+  "ActionKeyword": "cp",
+  "Name": "ChromeProfil",
+  "Description": "Search your Chrome profiles and open one",
+  "Author": "mce221",
+  "Version": "1.0.0",
+  "Language": "python",
+  "Website": "https://github.com/mce221/ChromeProfil",
+  "IcoPath": "Images\\icon.png",
+  "ExecuteFileName": "main.py"
+}
